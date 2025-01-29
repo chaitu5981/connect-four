@@ -104,7 +104,12 @@ const App = () => {
         <p className="text-2xl text-center">
           Make 4 of your coins in a row horizontally,vertically or diagonally
         </p>
-        <p className="text-2xl text-center">
+        <p
+          className={`text-2xl text-center mx-auto rounded text-white w-[9rem] ${
+            turn == 1 || winner == 1 ? "bg-red-500" : "bg-green-500"
+          }
+          `}
+        >
           {finished
             ? winner == 1
               ? "Red won"
