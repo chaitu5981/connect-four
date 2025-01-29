@@ -39,87 +39,40 @@ const App = () => {
     return true;
   };
   const check = () => {
-    console.log(new1);
     let i = new1[0],
       j = new1[1];
-
     if (i === -1 || j === -1) return false;
-    let col = grid[i][j],
-      flag;
-    console.log(col);
     console.log(grid);
-    if (j <= 3) {
-      flag = true;
-      for (let k = 0; k < 4; k++) {
-        if (grid[i][j + k] !== col) {
-          flag = false;
-          break;
-        }
-      }
-      if (flag) return true;
+    let col = grid[i][j];
+    let x1 = j,
+      x2 = j;
+    while (x1 + 1 < 7 && grid[i][x1 + 1] == col) x1++;
+    while (x2 - 1 >= 0 && grid[i][x2 - 1] == col) x2--;
+    if (x1 - x2 == 3) return true;
+    let y1 = i,
+      y2 = i;
+    while (y1 + 1 < 6 && grid[y1 + 1][j] == col) y1++;
+    if (y1 - y2 == 3) return true;
+    (x1 = i), (y1 = j), (x2 = i), (y2 = j);
+    while (x1 + 1 < 6 && y1 + 1 < 7 && grid[x1 + 1][y1 + 1] == col) {
+      x1++;
+      y1++;
     }
-    if (i <= 2) {
-      flag = true;
-      for (let k = 0; k < 4; k++) {
-        if (grid[i + k][j] !== col) {
-          flag = false;
-          break;
-        }
-      }
-      if (flag) return true;
+    while (x2 - 1 >= 0 && y2 - 1 >= 0 && grid[x2 - 1][y2 - 1] == col) {
+      x2--;
+      y2--;
     }
-    if (j >= 3) {
-      flag = true;
-      for (let k = 0; k < 4; k++) {
-        if (grid[i][j - k] !== col) {
-          flag = false;
-          break;
-        }
-      }
-      if (flag) return true;
+    if (x1 - x2 == 3 && y1 - y2 == 3) return true;
+    (x1 = i), (y1 = j), (x2 = i), (y2 = j);
+    while (x1 - 1 >= 0 && y1 + 1 < 6 && grid[x1 - 1][y1 + 1] == col) {
+      x1--;
+      y1++;
     }
-    if (i <= 2 && j <= 3) {
-      console.log("Hi");
-      flag = true;
-      for (let k = 0; k < 4; k++) {
-        console.log("Hello");
-        if (grid[i + k][j + k] !== col) {
-          flag = false;
-          break;
-        }
-      }
-      if (flag) return true;
+    while (x2 + 1 < 6 && y2 - 1 >= 0 && grid[x2 + 1][y2 - 1] == col) {
+      x2++;
+      y2--;
     }
-    if (i >= 3 && j <= 3) {
-      flag = true;
-      for (let k = 0; k < 4; k++) {
-        if (grid[i - k][j + k] !== col) {
-          flag = false;
-          break;
-        }
-      }
-      if (flag) return true;
-    }
-    if (i >= 3 && j >= 3) {
-      flag = true;
-      for (let k = 0; k < 4; k++) {
-        if (grid[i - k][j - k] !== col) {
-          flag = false;
-          break;
-        }
-      }
-      if (flag) return true;
-    }
-    if (i <= 2 && j >= 3) {
-      flag = true;
-      for (let k = 0; k < 4; k++) {
-        if (grid[i + k][j - k] !== col) {
-          flag = false;
-          break;
-        }
-      }
-      if (flag) return true;
-    }
+    if (x2 - x1 == 3 && y1 - y2 == 3) return true;
     return false;
   };
   useEffect(() => {
