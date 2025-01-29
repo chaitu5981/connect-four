@@ -33,6 +33,11 @@ const App = () => {
       }
     }
   };
+  const isFull = () => {
+    for (let i = 0; i < 6; i++)
+      for (let j = 0; j < 7; j++) if (grid[i][j] === 0) return false;
+    return true;
+  };
   const check = () => {
     console.log(new1);
     let i = new1[0],
@@ -123,6 +128,10 @@ const App = () => {
       // let i=new1[0],j=new1[1]
       setWinner(grid[new1[0]][new1[1]]);
     }
+    if (new1[0] == 0)
+      if (isFull()) {
+        setFinished(true);
+      }
   }, [grid, new1]);
   useEffect(() => {
     const styleSheet = document.styleSheets[0];
@@ -146,7 +155,9 @@ const App = () => {
           {finished
             ? winner == 1
               ? "Red won"
-              : "Green won"
+              : winner === 2
+              ? "Green won"
+              : "Draw"
             : `${turn == 1 ? "Red" : "Green"}'s turn`}
         </p>
         <div className="flex flex-col">
